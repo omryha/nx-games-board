@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Message } from '@bghoard/api-interfaces';
+import { Game } from '@bghoard/api-interfaces';
+// import { BrowserRouter, Route } from 'react-router-dom';
 
 export const App = () => {
-  const [m, setMessage] = useState<Message>({ message: '' });
+  const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    fetch('/api')
+    fetch('/api/game')
       .then((r) => r.json())
-      .then(setMessage);
+      .then(setGames);
   }, []);
 
   return (
     <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to review!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-          alt="Nx - Smart, Extensible Build Framework"
-        />
+      <div>
+        <h1 style={{ textAlign: 'center' }}>Board Game Hoard: Review</h1>
       </div>
-      <div>{m.message}</div>
+      <div>{JSON.stringify(games)}</div>
     </>
   );
 };
-
-export default App;
